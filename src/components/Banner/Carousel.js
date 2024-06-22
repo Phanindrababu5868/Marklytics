@@ -23,7 +23,7 @@ const classes = {
 
 const Carousel = () => {
   const [trending, setTrending] = useState([]);
-  const { currency, symbol, coinId, setCoinId } = CryptoState();
+  const { currency, symbol, setCoinId } = CryptoState();
 
   const fetchTrendingCoins = async () => {
     const { data } = await axios.get(TrendingCoins(currency));

@@ -1,6 +1,6 @@
 import { Box, LinearProgress, Typography } from "@mui/material";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import parser from "html-react-parser";
 
 import { SingleCoin } from "../../config/api";
@@ -10,16 +10,16 @@ import { numberWithCommas } from "../../util/numberWithCommas";
 const CoinPage = () => {
   const { currency, symbol, coinId, coin, setCoin, setLoading } = CryptoState();
 
-  const fetchCoin = async () => {
+  const fetchCoin = useCallback(async () => {
     setLoading(true);
     const { data } = await axios.get(SingleCoin(coinId));
     setCoin(data);
     setLoading(false);
-  };
+  }, [coinId, setCoin, setLoading]);
 
   useEffect(() => {
     fetchCoin();
-  }, [coinId]);
+  }, [fetchCoin]);
 
   const classes = {
     container: {
